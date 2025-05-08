@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BehaviorBuilder
@@ -18,20 +19,19 @@ public class BehaviorBuilder
         else if (agent.monster == "zombie")
         {
             result = new Selector(new BehaviorTree[] {
-                //Move towards other zombie
-                new Sequence(new BehaviorTree[]
-                {
-                    new NearbyEnemiesQuery(2, 10),
-                    //new GoTowards(GameManager.Instance.GetClosestEnemy(agent.transform.position).transform, 6, 5)
-                    new GoTo(GameManager.Instance.GetClosestEnemy(agent.transform.position).transform, 5)
-                }),
 
                 //Player in range
                 new Sequence(new BehaviorTree[] {
-                    new NearbyPlayerQuery(30),
+                    new NearbyEnemiesQuery(10, 100),
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
-                })
+                }),
+               
+                new Sequence(new BehaviorTree[] {
+                    new NearbyPlayerQuery(20),
+                    new MoveToPlayer(agent.GetAction("attack").range),
+                    new Attack()
+                }),
              });
         }
         else

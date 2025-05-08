@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GoTowards : BehaviorTree
 {
-    Transform target;
+    Vector3 target;
     float arrived_distance;
     float distance;
     bool in_progress;
@@ -15,7 +15,7 @@ public class GoTowards : BehaviorTree
             in_progress = true;
             start_point = agent.transform.position;
         }
-        Vector3 direction = target.position - agent.transform.position;
+        Vector3 direction = target - agent.transform.position;
         if ((direction.magnitude < arrived_distance) || (agent.transform.position - start_point).magnitude >= distance)
         {
             agent.GetComponent<Unit>().movement = new Vector2(0, 0);
@@ -29,7 +29,7 @@ public class GoTowards : BehaviorTree
         }
     }
 
-    public GoTowards(Transform target, float distance, float arrived_distance) : base()
+    public GoTowards(Vector3 target, float distance, float arrived_distance) : base()
     {
         this.target = target;
         this.arrived_distance = arrived_distance;
