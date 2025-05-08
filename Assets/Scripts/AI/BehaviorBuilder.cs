@@ -18,6 +18,7 @@ public class BehaviorBuilder
         else if (agent.monster == "zombie")
         {
             result = new Sequence(new BehaviorTree[] {
+                                       new NearbyPlayerQuery(30),
                                        new MoveToPlayer(agent.GetAction("attack").range),
                                        new Attack()
                                      });
