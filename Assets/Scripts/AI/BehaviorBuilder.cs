@@ -22,7 +22,8 @@ public class BehaviorBuilder
                 new Sequence(new BehaviorTree[]
                 {
                     new NearbyEnemiesQuery(2, 10),
-                    new GoTowards(GameManager.Instance.GetClosestEnemy(agent.transform.position).transform, 6, 5)
+                    //new GoTowards(GameManager.Instance.GetClosestEnemy(agent.transform.position).transform, 6, 5)
+                    new GoTo(GameManager.Instance.GetClosestEnemy(agent.transform.position).transform, 5)
                 }),
 
                 //Player in range
@@ -31,7 +32,7 @@ public class BehaviorBuilder
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
                 })
-             }
+             });
         }
         else
         {
