@@ -38,9 +38,9 @@ public class BehaviorBuilder
         {
             result = new Selector(new BehaviorTree[] {
 
-                //If there are 10 enemies in range, attack the player
+                //If there are 4 enemies in range, attack the player
                 new Sequence(new BehaviorTree[] {
-                    new NearbyEnemiesQuery(10, 100),
+                    new NearbyEnemiesQuery(4, 20),
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
                 }),
@@ -53,9 +53,10 @@ public class BehaviorBuilder
                 }),
 
                 //If warlock is nearby, go to that warlock
+                //FIX: Cannot break out of sequence
                  new Sequence(new BehaviorTree[] {
                     //new NearbyWarlockQuery(30),
-                    new MoveToWarlock(30, 5)
+                    new MoveToWarlock(30, 3)
                 })
              });
         }
