@@ -14,7 +14,6 @@ public class MoveToWarlock : BehaviorTree
             if(enemy.GetComponent<EnemyController>().monster == "warlock") //This is very silly
             {
                 warlock = enemy;
-                break;
             }
         }
 

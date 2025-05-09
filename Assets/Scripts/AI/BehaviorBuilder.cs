@@ -40,7 +40,7 @@ public class BehaviorBuilder
 
                 //If there are 4 enemies in range, attack the player
                 new Sequence(new BehaviorTree[] {
-                    new NearbyEnemiesQuery(8, 15),
+                    new NearbyEnemiesQuery(6, 15),
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
                 }),
