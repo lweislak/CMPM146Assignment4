@@ -7,6 +7,7 @@ public class Selector : InteriorNode
         Result res = children[current_child].Run();
         if (res == Result.SUCCESS)
         {
+            current_child = 0;
             return Result.SUCCESS;
         }
         if (res == Result.FAILURE)

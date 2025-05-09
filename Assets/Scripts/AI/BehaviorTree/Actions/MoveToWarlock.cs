@@ -13,7 +13,14 @@ public class MoveToWarlock : BehaviorTree
         {
             if(enemy.GetComponent<EnemyController>().monster == "warlock") //This is very silly
             {
-                warlock = enemy;
+                if(warlock != null){
+                    if((warlock.transform.position - agent.transform.position).magnitude > (enemy.transform.position - agent.transform.position).magnitude){
+                        warlock = enemy;
+                    }
+                }
+                else{
+                    warlock = enemy;
+                }
             }
         }
 

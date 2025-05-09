@@ -12,13 +12,13 @@ public class BehaviorBuilder
 
                 //Buff enemy
                 new Sequence(new BehaviorTree[] {
-                    new NearbyEnemiesQuery(1, 5), //Max range of 5
+                    new NearbyEnemiesQuery(2, 5), //Max range of 5
                     new Buff()
                 }),
 
                 //Perm buff enemy
                  new Sequence(new BehaviorTree[] {
-                    new NearbyEnemiesQuery(1, 5), //Max range of 5
+                    new NearbyEnemiesQuery(2, 5), //Max range of 5
                     new PermaBuff()
                 }),
 
@@ -47,6 +47,13 @@ public class BehaviorBuilder
                 //If there are 4 enemies in range, attack the player
                 new Sequence(new BehaviorTree[] {
                     new NearbyEnemiesQuery(6, 15),
+                    new MoveToPlayer(agent.GetAction("attack").range),
+                    new Attack()
+                }),
+
+                //If there are 20 enemies alive, CHARGE
+                new Sequence(new BehaviorTree[] {
+                    new NearbyEnemiesQuery(20, 1000),
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
                 }),
