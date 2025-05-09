@@ -38,16 +38,16 @@ public class BehaviorBuilder
         {
             result = new Selector(new BehaviorTree[] {
 
-                //If there are 4 enemies in range, attack the player
+                //If player is in range, attack
                 new Sequence(new BehaviorTree[] {
-                    new NearbyEnemiesQuery(6, 15),
+                    new NearbyPlayerQuery(15),
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
                 }),
 
-                //If player is in range, attack
+                //If there are 4 enemies in range, attack the player
                 new Sequence(new BehaviorTree[] {
-                    new NearbyPlayerQuery(18),
+                    new NearbyEnemiesQuery(6, 15),
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
                 }),
@@ -65,11 +65,20 @@ public class BehaviorBuilder
         {
             result = new Selector(new BehaviorTree[] {
                 //TODO: Seek out nearest zombie and follow them around
+                /*
+                 new Sequence(new BehaviorTree[] {
+                    new NearbyPlayerQuery(20),
+                    new MoveToPlayer(agent.GetAction("attack").range),
+                    new Attack()
+                 }),
+                */
 
                 new Sequence(new BehaviorTree[] {
-                        new MoveToPlayer(agent.GetAction("attack").range),
-                        new Attack()
-                 })
+                    new MoveToZombie(20, 2),
+                    new NearbyPlayerQuery(20),
+                    new MoveToPlayer(agent.GetAction("attack").range),
+                    new Attack()
+                })
             });
         }
 
