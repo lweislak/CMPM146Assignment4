@@ -9,7 +9,6 @@ public class BehaviorBuilder
         if (agent.monster == "warlock")
         {
             result = new Selector(new BehaviorTree[] {
-                //TODO: Prioritize enemies to buff/heal
 
                 //Buff enemy
                 new Sequence(new BehaviorTree[] {
@@ -53,10 +52,8 @@ public class BehaviorBuilder
                 }),
 
                 //If warlock is nearby, go to that warlock
-                //FIX: Cannot break out of sequence
                  new Sequence(new BehaviorTree[] {
-                    //new NearbyWarlockQuery(30),
-                    new MaxEnemiesQuery(2, 10),
+                    new NearbyWarlockQuery(10),
                     new MoveToWarlock(30, 3),
                     //new MaxEnemiesQuery(2, 10)
                 })
