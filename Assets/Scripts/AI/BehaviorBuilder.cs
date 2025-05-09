@@ -40,7 +40,7 @@ public class BehaviorBuilder
 
                 //If player is in range, attack
                 new Sequence(new BehaviorTree[] {
-                    new NearbyPlayerQuery(15),
+                    new NearbyPlayerQuery(18),
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
                 }),
@@ -56,8 +56,9 @@ public class BehaviorBuilder
                 //FIX: Cannot break out of sequence
                  new Sequence(new BehaviorTree[] {
                     //new NearbyWarlockQuery(30),
+                    new MaxEnemiesQuery(2, 10),
                     new MoveToWarlock(30, 3),
-                    new MaxEnemiesQuery(3, 10)
+                    //new MaxEnemiesQuery(2, 10)
                 })
              });
         }
@@ -65,19 +66,15 @@ public class BehaviorBuilder
         {
             result = new Selector(new BehaviorTree[] {
                 //TODO: Seek out nearest zombie and follow them around
-                /*
                  new Sequence(new BehaviorTree[] {
                     new NearbyPlayerQuery(20),
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
                  }),
-                */
 
                 new Sequence(new BehaviorTree[] {
                     new MoveToZombie(20, 2),
-                    new NearbyPlayerQuery(20),
-                    new MoveToPlayer(agent.GetAction("attack").range),
-                    new Attack()
+                    new MaxEnemiesQuery(2, 10)
                 })
             });
         }
