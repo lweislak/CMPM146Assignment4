@@ -9,6 +9,7 @@ public class BehaviorBuilder
         if (agent.monster == "warlock")
         {
             result = new Selector(new BehaviorTree[] {
+                //TODO: Prioritize enemies to buff/heal
 
                 //Buff enemy
                 new Sequence(new BehaviorTree[] {
@@ -36,29 +37,38 @@ public class BehaviorBuilder
         else if (agent.monster == "zombie")
         {
             result = new Selector(new BehaviorTree[] {
-                //TODO: If GetClosestOtherEnemy is a warlock, go to that warlock
-                //TODO: Use GetEnemiesInRange
 
-                //Player in range
+                //If there are 10 enemies in range, attack the player
                 new Sequence(new BehaviorTree[] {
                     new NearbyEnemiesQuery(10, 100),
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
                 }),
-               
+
+                //If player is in range, attack
                 new Sequence(new BehaviorTree[] {
                     new NearbyPlayerQuery(20),
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
                 }),
+
+                //If warlock is nearby, go to that warlock
+                 new Sequence(new BehaviorTree[] {
+                    //new NearbyWarlockQuery(30),
+                    new MoveToWarlock(30, 5)
+                })
              });
         }
         else
         {
-            result = new Sequence(new BehaviorTree[] {
-                    new MoveToPlayer(agent.GetAction("attack").range),
-                    new Attack()
-             });
+            result = new Selector(new BehaviorTree[] {
+                //TODO: Seek out nearest zombie and follow them around
+
+                new Sequence(new BehaviorTree[] {
+                        new MoveToPlayer(agent.GetAction("attack").range),
+                        new Attack()
+                 })
+            });
         }
 
         // do not change/remove: each node should be given a reference to the agent
