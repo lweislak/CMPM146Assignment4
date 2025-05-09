@@ -40,14 +40,14 @@ public class BehaviorBuilder
 
                 //If there are 4 enemies in range, attack the player
                 new Sequence(new BehaviorTree[] {
-                    new NearbyEnemiesQuery(4, 20),
+                    new NearbyEnemiesQuery(8, 15),
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
                 }),
 
                 //If player is in range, attack
                 new Sequence(new BehaviorTree[] {
-                    new NearbyPlayerQuery(20),
+                    new NearbyPlayerQuery(18),
                     new MoveToPlayer(agent.GetAction("attack").range),
                     new Attack()
                 }),
@@ -56,7 +56,8 @@ public class BehaviorBuilder
                 //FIX: Cannot break out of sequence
                  new Sequence(new BehaviorTree[] {
                     //new NearbyWarlockQuery(30),
-                    new MoveToWarlock(30, 3)
+                    new MoveToWarlock(30, 3),
+                    new MaxEnemiesQuery(3, 10)
                 })
              });
         }
